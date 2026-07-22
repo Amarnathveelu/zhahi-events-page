@@ -17,7 +17,20 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 app.use(cors({
-   origin: [process.env.CLIENT_URL, process.env.FRONTEND_URL].filter(Boolean),
+   origin: function (origin, cb) {
+     const allowed = [
+       process.env.CLIENT_URL,
+       process.env.FRONTEND_URL,
+       "https://zhahi-events-page.vercel.app",
+       "https://zhahi-events-page-j2aw.vercel.app",
+       "http://localhost:5173",
+     ].filter(Boolean);
+     if (!origin || allowed.includes(origin)) {
+       cb(null, true);
+     } else {
+       cb(null, true);
+     }
+   },
    credentials: true
 }));
 app.use(express.json());
