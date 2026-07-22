@@ -9,7 +9,7 @@ import Competitions from "./components/Competitions";
 import AdminPanel from "./components/admin/AdminPanel";
 import { getEvents, getOffers } from "./utils/api";
 
-const API_BASE = import.meta.env.VITE_API_URL || "https://zhahi-api.onrender.com";
+const API_BASE = import.meta.env.VITE_API_URL || "https://zhahi-events-page.onrender.com";
 
 const STATS = [
   { icon: Users, value: "500+", label: "Trained Students", color: "#6C5CE7" },

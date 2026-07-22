@@ -22,7 +22,7 @@ import BlobIcon from "./BlobIcon";
 import { createEnrollment, uploadScreenshot } from "../utils/api";
 
 const YEARS = ["1st Year", "2nd Year", "3rd Year", "4th Year", "Final Year", "PG"];
-const API_BASE = import.meta.env.VITE_API_URL || "https://zhahi-api.onrender.com";
+const API_BASE = import.meta.env.VITE_API_URL || "https://zhahi-events-page.onrender.com";
 
 export default function EnrollModal({ competition, onClose }) {
   const [step, setStep] = useState("form"); // form | qr | screenshot | processing | success | error
