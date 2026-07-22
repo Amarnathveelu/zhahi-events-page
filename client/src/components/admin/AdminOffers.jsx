@@ -44,7 +44,7 @@ export default function AdminOffers() {
         discount: offer.discount || "",
         sortOrder: offer.sortOrder || 0,
       });
-      setImagePreview(offer.image ? `http://localhost:5000${offer.image}` : null);
+      setImagePreview(offer.image ? `https://zhahi-events-page.onrender.com${offer.image}` : null);
     } else {
       setEditingOffer(null);
       setForm({ ...EMPTY_OFFER });
@@ -126,7 +126,7 @@ export default function AdminOffers() {
           <div key={offer._id} className="bg-white rounded-2xl border border-gray-200 p-5 flex flex-col sm:flex-row gap-4 items-start">
             <div className="w-full sm:w-24 h-20 rounded-xl overflow-hidden bg-gray-100 shrink-0">
               {offer.image ? (
-                <img src={`http://localhost:5000${offer.image}`} alt={offer.title} className="w-full h-full object-cover" />
+                <img src={`https://zhahi-events-page.onrender.com${offer.image}`} alt={offer.title} className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-300">
                   <Megaphone size={20} />

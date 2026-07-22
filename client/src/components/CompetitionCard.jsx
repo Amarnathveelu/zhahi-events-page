@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, Zap, Users } from "lucide-react";
 
-const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const API_BASE = import.meta.env.VITE_API_URL || "https://zhahi-events-page.onrender.com";
 
 export default function CompetitionCard({ competition, index, onEnroll }) {
   const {
