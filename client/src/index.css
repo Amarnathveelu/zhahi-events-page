@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-navy-dark text-white font-body;
+  overflow-x: hidden;
+}
+
+input, textarea, select, option {
+  color: #111827;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #9ca3af;
+}
+
+::selection {
+  background: #6C5CE7;
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #111827;
+}
+::-webkit-scrollbar-thumb {
+  background: #4f46e5;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
+
+.font-display {
+  letter-spacing: 0.05em;
+}
+
+.bg-noise {
+  background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Storyset-style subtle dot pattern */
+.bg-dots {
+  background-image: radial-gradient(circle, rgba(108,92,231,0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
