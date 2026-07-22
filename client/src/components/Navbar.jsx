@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Phone, Shield } from "lucide-react";
+import { Menu, X, Phone, Shield, GraduationCap } from "lucide-react";
 import logo from "../assets/logo.jpg";
 
 const LINKS = [
@@ -65,6 +65,13 @@ export default function Navbar() {
             Contact
           </a>
           <a
+            href="/student"
+            className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white transition-all"
+            title="Student Login"
+          >
+            <GraduationCap size={16} />
+          </a>
+          <a
             href="/admin"
             className="w-9 h-9 rounded-xl bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/40 hover:text-white transition-all"
             title="Admin Panel"
@@ -112,9 +119,16 @@ export default function Navbar() {
                 Contact Us
               </a>
               <a
+                href="/student"
+                onClick={() => setOpen(false)}
+                className="text-center text-xs text-white/50 hover:text-white/70 py-2 transition-colors"
+              >
+                Student Portal
+              </a>
+              <a
                 href="/admin"
                 onClick={() => setOpen(false)}
-                className="text-center text-xs text-white/50 hover:text-white/70 mt-3 py-2 transition-colors"
+                className="text-center text-xs text-white/50 hover:text-white/70 py-2 transition-colors"
               >
                 Admin Panel
               </a>

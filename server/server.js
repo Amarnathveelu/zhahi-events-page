@@ -8,6 +8,8 @@ import enrollmentRoutes from "./routes/enrollmentRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import eventRoutes from "./routes/eventRoutes.js";
 import offerRoutes from "./routes/offerRoutes.js";
+import studentRoutes from "./routes/studentRoutes.js";
+import updateRoutes from "./routes/updateRoutes.js";
 
 dotenv.config();
 
@@ -42,6 +44,8 @@ app.use("/api/enrollments", enrollmentRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/offers", offerRoutes);
+app.use("/api/students", studentRoutes);
+app.use("/api/updates", updateRoutes);
 
 app.use((err, req, res, next) => {
   console.error(err);

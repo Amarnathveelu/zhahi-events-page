@@ -46,6 +46,7 @@ const enrollmentSchema = new mongoose.Schema(
     },
     paymentScreenshot: { type: String, default: "" },
     adminVerified: { type: Boolean, default: false },
+    studentId: { type: mongoose.Schema.Types.ObjectId, ref: "Student", default: null },
   },
   { timestamps: true }
 );

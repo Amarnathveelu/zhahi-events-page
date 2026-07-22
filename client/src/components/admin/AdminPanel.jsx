@@ -9,11 +9,13 @@ import {
   ChevronLeft,
   Menu,
   Shield,
+  Bell,
 } from "lucide-react";
 import AdminDashboard from "./AdminDashboard";
 import AdminEvents from "./AdminEvents";
 import AdminOffers from "./AdminOffers";
 import AdminEnrollments from "./AdminEnrollments";
+import AdminUpdates from "./AdminUpdates";
 import AdminLogin from "./AdminLogin";
 
 const NAV_ITEMS = [
@@ -21,6 +23,7 @@ const NAV_ITEMS = [
   { id: "events", label: "Events", icon: Calendar },
   { id: "offers", label: "Offers / Ads", icon: Megaphone },
   { id: "enrollments", label: "Enrollments", icon: Users },
+  { id: "updates", label: "Updates", icon: Bell },
 ];
 
 export default function AdminPanel() {
@@ -126,6 +129,7 @@ export default function AdminPanel() {
           {activeTab === "events" && <AdminEvents />}
           {activeTab === "offers" && <AdminOffers />}
           {activeTab === "enrollments" && <AdminEnrollments />}
+          {activeTab === "updates" && <AdminUpdates />}
         </main>
       </div>
     </div>

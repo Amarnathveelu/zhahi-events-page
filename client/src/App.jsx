@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import EnrollModal from "./components/EnrollModal";
 import Competitions from "./components/Competitions";
 import AdminPanel from "./components/admin/AdminPanel";
+import StudentPortal from "./components/student/StudentPortal";
 import { getEvents, getOffers } from "./utils/api";
 
 const API_BASE = import.meta.env.VITE_API_URL || "https://zhahi-events-page.onrender.com";
@@ -114,11 +115,12 @@ export default function App() {
   const [offers, setOffers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Check if we're on admin route
-  const isAdminRoute = window.location.pathname === "/admin";
+  const path = window.location.pathname;
+  const isAdminRoute = path === "/admin";
+  const isStudentRoute = path === "/student";
 
   useEffect(() => {
-    if (isAdminRoute) return;
+    if (isAdminRoute || isStudentRoute) return;
 
     const fetchData = async () => {
       try {
@@ -135,10 +137,14 @@ export default function App() {
       }
     };
     fetchData();
-  }, [isAdminRoute]);
+  }, [isAdminRoute, isStudentRoute]);
 
   if (isAdminRoute) {
     return <AdminPanel />;
+  }
+
+  if (isStudentRoute) {
+    return <StudentPortal onBack={() => (window.location.href = "/")} />;
   }
 
   return (

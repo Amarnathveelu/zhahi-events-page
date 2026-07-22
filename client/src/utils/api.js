@@ -61,4 +61,14 @@ export const getEnrollments = (params = {}) => {
 export const verifyEnrollment = (enrollmentId, action) =>
   api.patch(`/enrollments/${enrollmentId}/verify`, { action });
 
+export const studentRegister = (payload) => api.post("/students/register", payload);
+export const studentLogin = (payload) => api.post("/students/login", payload);
+export const getStudentProfile = () => api.get("/students/profile");
+export const getStudentEnrollments = () => api.get("/students/enrollments");
+export const getStudentUpdates = () => api.get("/students/updates");
+
+export const getUpdates = () => api.get("/updates");
+export const createUpdate = (payload) => api.post("/updates", payload);
+export const deleteUpdate = (id) => api.delete(`/updates/${id}`);
+
 export default api;

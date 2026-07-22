@@ -1,4 +1,5 @@
 import Enrollment from "../models/Enrollment.js";
+import Student from "../models/Student.js";
 
 export const createEnrollment = async (req, res) => {
   try {
@@ -14,6 +15,7 @@ export const createEnrollment = async (req, res) => {
       collegeName,
       year,
       language,
+      password,
     } = req.body;
 
     if (!competitionId || !competitionTitle || !fee) {
@@ -23,12 +25,29 @@ export const createEnrollment = async (req, res) => {
       return res.status(400).json({ message: "Missing required fields." });
     }
 
+    let student = await Student.findOne({ email });
+    let isNewStudent = false;
+
+    if (!student) {
+      const studentPassword = password || "zhahi" + phone.slice(-4);
+      student = await Student.create({
+        name: name || email.split("@")[0],
+        email,
+        phone,
+        password: studentPassword,
+        collegeName,
+        year,
+      });
+      isNewStudent = true;
+    }
+
     const enrollment = await Enrollment.create({
       competitionId,
       competitionTitle,
       fee,
       paymentMethod: "qr",
       paymentStatus: "pending",
+      studentId: student._id,
       name: name || undefined,
       teamName: teamName || undefined,
       teamMembers: teamMembers
@@ -41,7 +60,17 @@ export const createEnrollment = async (req, res) => {
       language: language || null,
     });
 
-    res.status(201).json(enrollment);
+    const response = { enrollment };
+    if (isNewStudent) {
+      response.studentAccount = {
+        message: "Account created automatically!",
+        email,
+        password: password || "zhahi" + phone.slice(-4),
+        note: "Use these credentials to login and track your enrollment.",
+      };
+    }
+
+    res.status(201).json(response);
   } catch (err) {
     if (err.name === "ValidationError") {
       return res.status(400).json({ message: Object.values(err.errors)[0]?.message || "Validation failed." });
@@ -95,7 +124,7 @@ export const getEnrollments = async (req, res) => {
 export const verifyEnrollment = async (req, res) => {
   try {
     const { enrollmentId } = req.params;
-    const { action } = req.body; // "approve" or "reject"
+    const { action } = req.body;
 
     if (!["approve", "reject"].includes(action)) {
       return res.status(400).json({ message: "Action must be 'approve' or 'reject'." });
