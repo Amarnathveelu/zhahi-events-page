@@ -51,9 +51,6 @@ export default function CompetitionCard({ competition, index, onEnroll }) {
               No image
             </div>
           )}
-          <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm rounded-lg px-3 py-1.5">
-            <span className="text-white font-bold text-sm">₹{fee}</span>
-          </div>
         </div>
 
         <div className="flex-1 flex flex-col justify-between sm:pl-6">
