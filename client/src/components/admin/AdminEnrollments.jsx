@@ -174,7 +174,7 @@ export default function AdminEnrollments() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             onClick={(e) => e.stopPropagation()}
-            className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden"
+            className="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden max-h-[90vh] overflow-y-auto"
           >
             <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100">
               <h4 className="font-bold text-sm text-gray-900">Payment Screenshot</h4>
@@ -183,7 +183,7 @@ export default function AdminEnrollments() {
               </button>
             </div>
             <div className="p-4">
-              <img src={previewImage} alt="Payment Screenshot" className="w-full rounded-xl" />
+              <img src={previewImage} alt="Payment Screenshot" className="w-full max-h-[50vh] object-contain rounded-xl" />
             </div>
           </motion.div>
         </div>
