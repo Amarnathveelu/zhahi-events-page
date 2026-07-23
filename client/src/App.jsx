@@ -59,7 +59,7 @@ function OffersBanner({ offers }) {
   return (
     <>
       <section className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6">
           {visibleOffers.map((offer) => (
             <motion.div
               key={offer._id}
@@ -73,13 +73,13 @@ function OffersBanner({ offers }) {
                   e.stopPropagation();
                   setDismissed((prev) => new Set([...prev, offer._id]));
                 }}
-                className="absolute top-3 right-3 z-10 text-amber-400/60 hover:text-amber-300 transition-colors"
+                className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center text-white/80 hover:text-white hover:bg-black/80 transition-colors"
               >
-                <X size={14} />
+                <X size={18} />
               </button>
 
               {offer.image && (
-                <div className="w-full h-52 sm:h-56 lg:h-64 bg-black/30 overflow-hidden">
+                <div className="w-full h-52 sm:h-56 lg:h-72 bg-black/30 overflow-hidden">
                   <img
                     src={offer.image}
                     alt={offer.title}
@@ -88,18 +88,18 @@ function OffersBanner({ offers }) {
                 </div>
               )}
 
-              <div className="p-5 sm:p-6">
+              <div className="p-5 sm:p-6 lg:p-7">
                 <div className="flex items-center gap-2 mb-2">
                   <Megaphone size={16} className="text-amber-500" />
-                  <h4 className="font-bold text-base sm:text-lg text-white">{offer.title}</h4>
+                  <h4 className="font-bold text-base sm:text-lg lg:text-xl text-white">{offer.title}</h4>
                   {offer.discount && (
-                    <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-500 text-white">
+                    <span className="text-xs lg:text-sm font-bold px-2.5 py-0.5 rounded-full bg-amber-500 text-white">
                       {offer.discount}
                     </span>
                   )}
                 </div>
                 {offer.description && (
-                  <p className="text-sm text-white/60 line-clamp-2 leading-relaxed">{offer.description}</p>
+                  <p className="text-sm lg:text-base text-white/60 line-clamp-2 leading-relaxed">{offer.description}</p>
                 )}
                 {offer.link && (
                   <a
