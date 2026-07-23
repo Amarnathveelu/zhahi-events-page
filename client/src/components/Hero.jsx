@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Play, Users, Award, BookOpen } from "lucide-react";
+import { ArrowRight, Calendar, Clock, MapPin, Zap, Users, Trophy } from "lucide-react";
 import heroImage from "../assets/hero.png";
 
 function StorysetBlob({ className, color = "#6C5CE7" }) {
@@ -34,26 +34,11 @@ export default function Hero() {
       <StorysetBlob className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[800px] h-[500px] sm:h-[800px] opacity-20" color="#DFE6E9" />
 
       {/* Floating decorative elements */}
-      <FloatingShape
-        className="absolute top-32 left-[15%] w-3 h-3 rounded-full bg-indigo-400/30"
-        delay={0}
-      />
-      <FloatingShape
-        className="absolute top-48 right-[20%] w-2 h-2 rounded-full bg-purple-400/40"
-        delay={1}
-      />
-      <FloatingShape
-        className="absolute bottom-32 left-[25%] w-4 h-4 rounded-full bg-indigo-300/20"
-        delay={2}
-      />
-      <FloatingShape
-        className="absolute top-60 left-[8%] w-6 h-6 rounded-lg bg-indigo-400/10 rotate-45"
-        delay={1.5}
-      />
-      <FloatingShape
-        className="absolute bottom-48 right-[12%] w-5 h-5 rounded-full bg-purple-300/20"
-        delay={0.5}
-      />
+      <FloatingShape className="absolute top-32 left-[15%] w-3 h-3 rounded-full bg-indigo-400/30" delay={0} />
+      <FloatingShape className="absolute top-48 right-[20%] w-2 h-2 rounded-full bg-purple-400/40" delay={1} />
+      <FloatingShape className="absolute bottom-32 left-[25%] w-4 h-4 rounded-full bg-indigo-300/20" delay={2} />
+      <FloatingShape className="absolute top-60 left-[8%] w-6 h-6 rounded-lg bg-indigo-400/10 rotate-45" delay={1.5} />
+      <FloatingShape className="absolute bottom-48 right-[12%] w-5 h-5 rounded-full bg-purple-300/20" delay={0.5} />
 
       {/* Grid pattern overlay */}
       <div className="absolute inset-0 opacity-[0.02]" style={{
@@ -69,33 +54,67 @@ export default function Hero() {
           transition={{ duration: 0.7, ease: "easeOut" }}
           className="max-w-xl"
         >
+          {/* Live badge */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center gap-2 bg-indigo-50 border border-indigo-200/50 rounded-full px-4 py-1.5 mb-4 sm:mb-6"
+            className="inline-flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-full px-4 py-1.5 mb-4 sm:mb-6"
           >
-            <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-            <span className="text-[10px] sm:text-xs font-semibold text-indigo-600 tracking-wide uppercase">Be in trend</span>
+            <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            <span className="text-[10px] sm:text-xs font-semibold text-red-400 tracking-wide uppercase">Upcoming Events — Register Now</span>
           </motion.div>
 
-          <h1 className="font-display text-3xl sm:text-4xl lg:text-[3.8rem] leading-tight lg:leading-[1.08] mb-4 sm:mb-6 uppercase text-white">
-            Boost Up Your Career through{" "}
+          {/* Main heading */}
+          <h1 className="font-display text-3xl sm:text-4xl lg:text-[3.6rem] leading-tight lg:leading-[1.08] mb-4 sm:mb-5 uppercase text-white">
+            Live Tech{" "}
             <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-              Enlightening Education
-            </span>
+              Competitions
+            </span>{" "}
+            & Workshops
           </h1>
 
-          <p className="text-white/60 text-sm max-w-md mb-6 sm:mb-10 leading-relaxed font-body">
-            Personalize your education with diverse courses and flexible schedules to align with your goals. Boost your career by acquiring sought-after software skills.
+          {/* Description — event-focused */}
+          <p className="text-white/60 text-sm max-w-md mb-5 sm:mb-8 leading-relaxed font-body">
+            Join hands-on coding battles, design challenges & skill workshops conducted by industry experts.
+            Build real projects, compete with peers, and earn certificates — all at an affordable fee.
           </p>
 
+          {/* Event details card */}
+          <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-4 sm:p-5 mb-6 sm:mb-8">
+            <p className="text-[10px] sm:text-xs font-bold text-indigo-400 uppercase tracking-wider mb-3">Next Event</p>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="flex items-center gap-2">
+                <Calendar size={14} className="text-indigo-400 shrink-0" />
+                <div>
+                  <p className="text-[10px] text-white/40">Date</p>
+                  <p className="text-xs sm:text-sm font-semibold text-white">Aug 2, 2025</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock size={14} className="text-purple-400 shrink-0" />
+                <div>
+                  <p className="text-[10px] text-white/40">Time</p>
+                  <p className="text-xs sm:text-sm font-semibold text-white">10:00 AM – 5:00 PM</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 col-span-2">
+                <MapPin size={14} className="text-green-400 shrink-0" />
+                <div>
+                  <p className="text-[10px] text-white/40">Venue</p>
+                  <p className="text-xs sm:text-sm font-semibold text-white">Zhahi Tech Training, Theni</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA buttons */}
           <div className="flex flex-wrap items-center gap-3 sm:gap-4">
             <a
               href="#events"
               className="group inline-flex items-center gap-3 bg-gradient-to-r from-indigo-600 to-indigo-700 text-white font-body font-semibold text-sm px-5 sm:px-7 py-3 sm:py-3.5 rounded-xl hover:from-indigo-700 hover:to-indigo-800 transition-all shadow-lg shadow-indigo-600/25"
             >
-              Get Started
+              Register Now
               <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
                 <ArrowRight size={14} />
               </span>
@@ -104,39 +123,29 @@ export default function Hero() {
               href="#events"
               className="inline-flex items-center gap-2.5 border border-white/20 text-white/80 font-body font-medium text-sm px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl hover:bg-white/5 hover:border-white/30 transition-all"
             >
-              <Play size={14} fill="currentColor" />
-              Explore Events
+              View All Events
             </a>
           </div>
 
-          {/* Stats row */}
-          <div className="grid grid-cols-3 gap-3 sm:gap-8 mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/10">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-indigo-500/10 flex items-center justify-center shrink-0">
-                <Users size={16} className="text-indigo-400" />
+          {/* Why attend — quick reasons */}
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6 mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-white/10">
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-indigo-500/10 flex items-center justify-center shrink-0">
+                <Trophy size={13} className="text-indigo-400" />
               </div>
-              <div>
-                <p className="font-bold text-white text-sm sm:text-lg">500+</p>
-                <p className="text-[9px] sm:text-[11px] text-white/50 font-medium">Students Trained</p>
-              </div>
+              <p className="text-[10px] sm:text-xs text-white/50 font-medium">Win Prizes</p>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-purple-500/10 flex items-center justify-center shrink-0">
-                <Award size={16} className="text-purple-400" />
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-purple-500/10 flex items-center justify-center shrink-0">
+                <Zap size={13} className="text-purple-400" />
               </div>
-              <div>
-                <p className="font-bold text-white text-sm sm:text-lg">200+</p>
-                <p className="text-[9px] sm:text-[11px] text-white/50 font-medium">Placed</p>
-              </div>
+              <p className="text-[10px] sm:text-xs text-white/50 font-medium">Real Projects</p>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl bg-indigo-500/10 flex items-center justify-center shrink-0">
-                <BookOpen size={16} className="text-indigo-400" />
+            <div className="flex items-center gap-2">
+              <div className="w-7 h-7 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0">
+                <Users size={13} className="text-green-400" />
               </div>
-              <div>
-                <p className="font-bold text-white text-sm sm:text-lg">50+</p>
-                <p className="text-[9px] sm:text-[11px] text-white/50 font-medium">Workshops</p>
-              </div>
+              <p className="text-[10px] sm:text-xs text-white/50 font-medium">Network & Learn</p>
             </div>
           </div>
         </motion.div>
@@ -156,25 +165,24 @@ export default function Hero() {
           <div className="relative bg-white rounded-[1.5rem] sm:rounded-[2rem] p-3 sm:p-4 shadow-2xl overflow-hidden border border-white/10">
             <img
               src={heroImage}
-              alt="Tech Education"
+              alt="Live Tech Competition"
               className="w-full h-auto rounded-[1rem] sm:rounded-[1.5rem] object-cover"
             />
-            {/* Overlay gradient */}
             <div className="absolute inset-3 sm:inset-4 rounded-[1rem] sm:rounded-[1.5rem] bg-gradient-to-t from-indigo-900/20 to-transparent pointer-events-none" />
           </div>
 
-          {/* Floating badge - hidden on small mobile */}
+          {/* Floating badge */}
           <motion.div
             animate={{ y: [0, -8, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             className="hidden sm:flex absolute -bottom-4 -left-4 bg-white rounded-2xl px-5 py-3 shadow-xl items-center gap-3"
           >
             <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center">
-              <Award size={20} className="text-green-600" />
+              <Trophy size={20} className="text-green-600" />
             </div>
             <div>
-              <p className="text-xs font-bold text-gray-900">100%</p>
-              <p className="text-[10px] text-gray-400">Placement Support</p>
+              <p className="text-xs font-bold text-gray-900">500+</p>
+              <p className="text-[10px] text-gray-400">Students Already Registered</p>
             </div>
           </motion.div>
         </motion.div>
