@@ -51,59 +51,131 @@ function StatsSection() {
 
 function OffersBanner({ offers }) {
   const [dismissed, setDismissed] = useState(new Set());
+  const [selectedOffer, setSelectedOffer] = useState(null);
   const visibleOffers = offers.filter((o) => !dismissed.has(o._id));
 
   if (visibleOffers.length === 0) return null;
 
   return (
-    <section className="px-4 sm:px-6 py-6 sm:py-8">
-      <div className="max-w-6xl mx-auto space-y-4">
-        {visibleOffers.map((offer) => (
-          <motion.div
-            key={offer._id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="relative bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-amber-500/5 border border-amber-500/25 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4"
-          >
-            <button
-              onClick={() => setDismissed((prev) => new Set([...prev, offer._id]))}
-              className="absolute top-3 right-3 text-amber-400/60 hover:text-amber-300 transition-colors"
+    <>
+      <section className="px-4 sm:px-6 py-6 sm:py-8">
+        <div className="max-w-6xl mx-auto space-y-4">
+          {visibleOffers.map((offer) => (
+            <motion.div
+              key={offer._id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="relative bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-amber-500/5 border border-amber-500/25 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 cursor-pointer hover:border-amber-500/50 transition-all"
+              onClick={() => setSelectedOffer(offer)}
             >
-              <X size={14} />
-            </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setDismissed((prev) => new Set([...prev, offer._id]));
+                }}
+                className="absolute top-3 right-3 text-amber-400/60 hover:text-amber-300 transition-colors"
+              >
+                <X size={14} />
+              </button>
 
-            {offer.image && (
-              <img src={offer.image} alt={offer.title} className="w-full sm:w-20 h-16 object-cover rounded-xl" />
+              {offer.image && (
+                <img src={offer.image} alt={offer.title} className="w-full sm:w-20 h-16 object-cover rounded-xl shrink-0" />
+              )}
+
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <Megaphone size={14} className="text-amber-500" />
+                  <h4 className="font-bold text-sm text-white">{offer.title}</h4>
+                  {offer.discount && (
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500 text-white">
+                      {offer.discount}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-white/60 line-clamp-1">{offer.description}</p>
+              </div>
+
+              {offer.link && (
+                <a
+                  href={offer.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-semibold px-4 py-2 rounded-xl hover:bg-amber-600 transition-colors shrink-0"
+                >
+                  Learn More
+                  <ExternalLink size={12} />
+                </a>
+              )}
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Offer detail modal */}
+      {selectedOffer && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setSelectedOffer(null)}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ type: "spring", duration: 0.4 }}
+            className="bg-[#1e2443] border border-white/10 rounded-3xl max-w-lg w-full max-h-[90vh] overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {selectedOffer.image && (
+              <div className="relative bg-black">
+                <img
+                  src={selectedOffer.image}
+                  alt={selectedOffer.title}
+                  className="w-full max-h-[60vh] object-contain"
+                />
+              </div>
             )}
 
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <Megaphone size={14} className="text-amber-500" />
-                <h4 className="font-bold text-sm text-white">{offer.title}</h4>
-                {offer.discount && (
-                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500 text-white">
-                    {offer.discount}
+            <div className="p-6">
+              <div className="flex items-center gap-2 mb-2">
+                <Megaphone size={16} className="text-amber-500" />
+                <h3 className="font-bold text-lg text-white">{selectedOffer.title}</h3>
+                {selectedOffer.discount && (
+                  <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-500 text-white">
+                    {selectedOffer.discount}
                   </span>
                 )}
               </div>
-              <p className="text-xs text-white/60 line-clamp-1">{offer.description}</p>
+              {selectedOffer.description && (
+                <p className="text-sm text-white/60 leading-relaxed mb-4">{selectedOffer.description}</p>
+              )}
+              <div className="flex items-center gap-3">
+                {selectedOffer.link && (
+                  <a
+                    href={selectedOffer.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 bg-amber-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl hover:bg-amber-600 transition-colors"
+                  >
+                    Learn More
+                    <ExternalLink size={14} />
+                  </a>
+                )}
+                <button
+                  onClick={() => setSelectedOffer(null)}
+                  className="inline-flex items-center gap-2 border border-white/20 text-white/70 text-sm font-medium px-5 py-2.5 rounded-xl hover:bg-white/5 transition-colors"
+                >
+                  Close
+                </button>
+              </div>
             </div>
-
-            {offer.link && (
-              <a
-                href={offer.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-semibold px-4 py-2 rounded-xl hover:bg-amber-600 transition-colors shrink-0"
-              >
-                Learn More
-                <ExternalLink size={12} />
-              </a>
-            )}
           </motion.div>
-        ))}
-      </div>
-    </section>
+        </motion.div>
+      )}
+    </>
   );
 }
 
