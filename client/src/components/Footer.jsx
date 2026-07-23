@@ -1,5 +1,5 @@
 import { Mail, Phone, MapPin, ExternalLink, Heart, Shield } from "lucide-react";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo.png";
 
 const QUICK_LINKS = [
   { label: "Home", href: "#home" },

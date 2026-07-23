@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Shield, GraduationCap } from "lucide-react";
-import logo from "../assets/logo.jpg";
+import logo from "../assets/logo.png";
 
 const LINKS = [
   { label: "Home", href: "#home" },
