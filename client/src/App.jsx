@@ -58,14 +58,14 @@ function OffersBanner({ offers }) {
 
   return (
     <>
-      <section className="px-4 sm:px-6 py-6 sm:py-8">
-        <div className="max-w-6xl mx-auto space-y-4">
+      <section className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-5">
           {visibleOffers.map((offer) => (
             <motion.div
               key={offer._id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="relative bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-amber-500/5 border border-amber-500/25 rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 cursor-pointer hover:border-amber-500/50 transition-all"
+              className="relative bg-gradient-to-br from-amber-500/15 via-amber-500/10 to-amber-500/5 border border-amber-500/25 rounded-2xl overflow-hidden cursor-pointer hover:border-amber-500/50 transition-all group"
               onClick={() => setSelectedOffer(offer)}
             >
               <button
@@ -73,40 +73,47 @@ function OffersBanner({ offers }) {
                   e.stopPropagation();
                   setDismissed((prev) => new Set([...prev, offer._id]));
                 }}
-                className="absolute top-3 right-3 text-amber-400/60 hover:text-amber-300 transition-colors"
+                className="absolute top-3 right-3 z-10 text-amber-400/60 hover:text-amber-300 transition-colors"
               >
                 <X size={14} />
               </button>
 
               {offer.image && (
-                <img src={offer.image} alt={offer.title} className="w-full sm:w-20 h-16 object-cover rounded-xl shrink-0" />
+                <div className="w-full h-52 sm:h-56 lg:h-64 bg-black/30 overflow-hidden">
+                  <img
+                    src={offer.image}
+                    alt={offer.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
               )}
 
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-1">
-                  <Megaphone size={14} className="text-amber-500" />
-                  <h4 className="font-bold text-sm text-white">{offer.title}</h4>
+              <div className="p-5 sm:p-6">
+                <div className="flex items-center gap-2 mb-2">
+                  <Megaphone size={16} className="text-amber-500" />
+                  <h4 className="font-bold text-base sm:text-lg text-white">{offer.title}</h4>
                   {offer.discount && (
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500 text-white">
+                    <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-500 text-white">
                       {offer.discount}
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-white/60 line-clamp-1">{offer.description}</p>
+                {offer.description && (
+                  <p className="text-sm text-white/60 line-clamp-2 leading-relaxed">{offer.description}</p>
+                )}
+                {offer.link && (
+                  <a
+                    href={offer.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-semibold px-4 py-2 rounded-xl hover:bg-amber-600 transition-colors mt-3"
+                  >
+                    Learn More
+                    <ExternalLink size={12} />
+                  </a>
+                )}
               </div>
-
-              {offer.link && (
-                <a
-                  href={offer.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="inline-flex items-center gap-1.5 bg-amber-500 text-white text-xs font-semibold px-4 py-2 rounded-xl hover:bg-amber-600 transition-colors shrink-0"
-                >
-                  Learn More
-                  <ExternalLink size={12} />
-                </a>
-              )}
             </motion.div>
           ))}
         </div>
