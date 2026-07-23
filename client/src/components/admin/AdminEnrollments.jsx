@@ -59,8 +59,6 @@ export default function AdminEnrollments() {
     }
   };
 
-  const API_BASE = "https://zhahi-events-page.onrender.com";
-
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
@@ -130,7 +128,7 @@ export default function AdminEnrollments() {
               <div className="flex items-center gap-3 shrink-0">
                 {enroll.paymentScreenshot && (
                   <button
-                    onClick={() => setPreviewImage(`${API_BASE}${enroll.paymentScreenshot}`)}
+                    onClick={() => setPreviewImage(enroll.paymentScreenshot)}
                     className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-2 rounded-xl hover:bg-blue-100 transition-colors"
                   >
                     <Image size={14} />

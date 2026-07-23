@@ -1,4 +1,5 @@
 import Event from "../models/Event.js";
+import { deleteCloudinaryImage } from "../utils/cloudinaryHelper.js";
 
 export const createEvent = async (req, res) => {
   try {
@@ -19,10 +20,10 @@ export const createEvent = async (req, res) => {
     };
 
     if (req.files?.image) {
-      eventData.image = `/uploads/${req.files.image[0].filename}`;
+      eventData.image = req.files.image[0].path;
     }
     if (req.files?.qrCode) {
-      eventData.qrCode = `/uploads/${req.files.qrCode[0].filename}`;
+      eventData.qrCode = req.files.qrCode[0].path;
     }
 
     const event = await Event.create(eventData);
@@ -56,13 +57,18 @@ export const getEventById = async (req, res) => {
 
 export const updateEvent = async (req, res) => {
   try {
+    const existing = await Event.findById(req.params.id);
+    if (!existing) return res.status(404).json({ message: "Event not found." });
+
     const updateData = { ...req.body };
 
     if (req.files?.image) {
-      updateData.image = `/uploads/${req.files.image[0].filename}`;
+      await deleteCloudinaryImage(existing.image);
+      updateData.image = req.files.image[0].path;
     }
     if (req.files?.qrCode) {
-      updateData.qrCode = `/uploads/${req.files.qrCode[0].filename}`;
+      await deleteCloudinaryImage(existing.qrCode);
+      updateData.qrCode = req.files.qrCode[0].path;
     }
 
     if (updateData.isTeamEvent !== undefined) {
@@ -85,7 +91,6 @@ export const updateEvent = async (req, res) => {
     }
 
     const event = await Event.findByIdAndUpdate(req.params.id, updateData, { new: true, runValidators: true });
-    if (!event) return res.status(404).json({ message: "Event not found." });
     res.json(event);
   } catch (err) {
     console.error(err);
@@ -97,6 +102,8 @@ export const deleteEvent = async (req, res) => {
   try {
     const event = await Event.findByIdAndDelete(req.params.id);
     if (!event) return res.status(404).json({ message: "Event not found." });
+    await deleteCloudinaryImage(event.image);
+    await deleteCloudinaryImage(event.qrCode);
     res.json({ message: "Event deleted successfully." });
   } catch (err) {
     res.status(500).json({ message: "Server error while deleting event." });

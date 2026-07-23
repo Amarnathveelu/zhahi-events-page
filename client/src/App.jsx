@@ -10,8 +10,6 @@ import AdminPanel from "./components/admin/AdminPanel";
 import StudentPortal from "./components/student/StudentPortal";
 import { getEvents, getOffers } from "./utils/api";
 
-const API_BASE = import.meta.env.VITE_API_URL || "https://zhahi-events-page.onrender.com";
-
 const STATS = [
   { icon: Users, value: "500+", label: "Trained Students", color: "#6C5CE7" },
   { icon: Award, value: "200+", label: "Placed Students", color: "#A29BFE" },
@@ -75,7 +73,7 @@ function OffersBanner({ offers }) {
             </button>
 
             {offer.image && (
-              <img src={`${API_BASE}${offer.image}`} alt={offer.title} className="w-full sm:w-20 h-16 object-cover rounded-xl" />
+              <img src={offer.image} alt={offer.title} className="w-full sm:w-20 h-16 object-cover rounded-xl" />
             )}
 
             <div className="flex-1 min-w-0">

@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, Zap, Users } from "lucide-react";
 
-const API_BASE = import.meta.env.VITE_API_URL || "https://zhahi-events-page.onrender.com";
-
 export default function CompetitionCard({ competition, index, onEnroll }) {
   const {
     title,
@@ -40,7 +38,7 @@ export default function CompetitionCard({ competition, index, onEnroll }) {
           {image ? (
             <>
               <img
-                src={image.startsWith("/") ? `${API_BASE}${image}` : image}
+                src={image || ""}
                 alt={title}
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />

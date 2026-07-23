@@ -22,7 +22,6 @@ import BlobIcon from "./BlobIcon";
 import { createEnrollment, uploadScreenshot } from "../utils/api";
 
 const YEARS = ["1st Year", "2nd Year", "3rd Year", "4th Year", "Final Year", "PG"];
-const API_BASE = import.meta.env.VITE_API_URL || "https://zhahi-events-page.onrender.com";
 
 export default function EnrollModal({ competition, onClose }) {
   const [step, setStep] = useState("form"); // form | qr | screenshot | processing | success | error
@@ -363,9 +362,7 @@ function FormStep({ competition, errors, register, fields, append, remove, onSub
 }
 
 function QRStep({ competition, enrollment, onContinue, onBack }) {
-  const qrUrl = competition.qrCode
-    ? `${API_BASE}${competition.qrCode}`
-    : null;
+  const qrUrl = competition.qrCode || null;
 
   return (
     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="text-center">

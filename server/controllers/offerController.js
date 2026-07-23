@@ -1,4 +1,5 @@
 import Offer from "../models/Offer.js";
+import { deleteCloudinaryImage } from "../utils/cloudinaryHelper.js";
 
 export const createOffer = async (req, res) => {
   try {
@@ -11,7 +12,7 @@ export const createOffer = async (req, res) => {
     };
 
     if (req.files?.image) {
-      offerData.image = `/uploads/${req.files.image[0].filename}`;
+      offerData.image = req.files.image[0].path;
     }
 
     const offer = await Offer.create(offerData);
@@ -35,10 +36,14 @@ export const getOffers = async (req, res) => {
 
 export const updateOffer = async (req, res) => {
   try {
+    const existing = await Offer.findById(req.params.id);
+    if (!existing) return res.status(404).json({ message: "Offer not found." });
+
     const updateData = { ...req.body };
 
     if (req.files?.image) {
-      updateData.image = `/uploads/${req.files.image[0].filename}`;
+      await deleteCloudinaryImage(existing.image);
+      updateData.image = req.files.image[0].path;
     }
     if (updateData.isActive !== undefined) {
       updateData.isActive = updateData.isActive === "true" || updateData.isActive === true;
@@ -48,7 +53,6 @@ export const updateOffer = async (req, res) => {
     }
 
     const offer = await Offer.findByIdAndUpdate(req.params.id, updateData, { new: true });
-    if (!offer) return res.status(404).json({ message: "Offer not found." });
     res.json(offer);
   } catch (err) {
     res.status(500).json({ message: "Server error while updating offer." });
@@ -59,6 +63,7 @@ export const deleteOffer = async (req, res) => {
   try {
     const offer = await Offer.findByIdAndDelete(req.params.id);
     if (!offer) return res.status(404).json({ message: "Offer not found." });
+    await deleteCloudinaryImage(offer.image);
     res.json({ message: "Offer deleted successfully." });
   } catch (err) {
     res.status(500).json({ message: "Server error while deleting offer." });

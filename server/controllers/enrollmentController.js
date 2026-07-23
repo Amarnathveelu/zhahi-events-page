@@ -1,5 +1,6 @@
 import Enrollment from "../models/Enrollment.js";
 import Student from "../models/Student.js";
+import { deleteCloudinaryImage } from "../utils/cloudinaryHelper.js";
 
 export const createEnrollment = async (req, res) => {
   try {
@@ -88,18 +89,18 @@ export const uploadPaymentScreenshot = async (req, res) => {
       return res.status(400).json({ message: "Please upload a payment screenshot." });
     }
 
-    const enrollment = await Enrollment.findByIdAndUpdate(
-      enrollmentId,
-      {
-        paymentScreenshot: `/uploads/${req.file.filename}`,
-        paymentStatus: "verification_pending",
-      },
-      { new: true }
-    );
-
+    const enrollment = await Enrollment.findById(enrollmentId);
     if (!enrollment) {
       return res.status(404).json({ message: "Enrollment not found." });
     }
+
+    if (enrollment.paymentScreenshot) {
+      await deleteCloudinaryImage(enrollment.paymentScreenshot);
+    }
+
+    enrollment.paymentScreenshot = req.file.path;
+    enrollment.paymentStatus = "verification_pending";
+    await enrollment.save();
 
     res.json({ message: "Screenshot uploaded. Awaiting verification.", enrollment });
   } catch (err) {
