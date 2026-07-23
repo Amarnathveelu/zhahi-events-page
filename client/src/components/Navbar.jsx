@@ -9,6 +9,15 @@ const LINKS = [
   { label: "Contact Us", href: "#contact" },
 ];
 
+function scrollToSection(id) {
+  const el = document.getElementById(id.replace("#", ""));
+  if (el) {
+    const offset = 80;
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: "smooth" });
+  }
+}
+
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -19,6 +28,12 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const handleNavClick = (e, href) => {
+    e.preventDefault();
+    setOpen(false);
+    setTimeout(() => scrollToSection(href), 100);
+  };
+
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
@@ -27,9 +42,9 @@ export default function Navbar() {
           : "bg-transparent py-5"
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+      <nav className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
         {/* Logo */}
-        <a href="#home" className="flex items-center gap-3 group">
+        <a href="#home" onClick={(e) => handleNavClick(e, "#home")} className="flex items-center gap-3 group">
           <img
             src={logo}
             alt="Zhahi Tech Logo"
@@ -51,6 +66,7 @@ export default function Navbar() {
             <a
               key={l.label}
               href={l.href}
+              onClick={(e) => handleNavClick(e, l.href)}
               className="text-white/70 hover:text-white font-medium transition-colors relative group"
             >
               {l.label}
@@ -104,7 +120,7 @@ export default function Navbar() {
                 <a
                   key={l.label}
                   href={l.href}
-                  onClick={() => setOpen(false)}
+                  onClick={(e) => handleNavClick(e, l.href)}
                   className="py-3 border-b border-white/5 text-white/70 hover:text-white font-medium transition-colors"
                 >
                   {l.label}

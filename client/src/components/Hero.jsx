@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Calendar, Clock, MapPin, Zap, Users, Trophy } from "lucide-react";
+import { ArrowRight, Calendar, Clock, MapPin, Zap, Users, Trophy, Award } from "lucide-react";
 import heroImage from "../assets/hero.png";
 
 function StorysetBlob({ className, color = "#6C5CE7" }) {
@@ -177,12 +177,12 @@ export default function Hero() {
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             className="hidden sm:flex absolute -bottom-4 -left-4 bg-white rounded-2xl px-5 py-3 shadow-xl items-center gap-3"
           >
-            <div className="w-10 h-10 rounded-xl bg-green-100 flex items-center justify-center">
-              <Trophy size={20} className="text-green-600" />
+            <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center">
+              <Award size={20} className="text-amber-600" />
             </div>
             <div>
-              <p className="text-xs font-bold text-gray-900">500+</p>
-              <p className="text-[10px] text-gray-400">Students Already Registered</p>
+              <p className="text-xs font-bold text-gray-900">Win Prizes & Certificates</p>
+              <p className="text-[10px] text-gray-400">For All Attendees</p>
             </div>
           </motion.div>
         </motion.div>
