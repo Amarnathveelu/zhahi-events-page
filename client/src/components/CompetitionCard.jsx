@@ -33,8 +33,8 @@ export default function CompetitionCard({ competition, index, onEnroll }) {
         style={{ background: `linear-gradient(90deg, transparent, ${accent}, transparent)` }}
       />
 
-      <div className="flex flex-col sm:flex-row gap-5 sm:gap-0 p-5 sm:p-6">
-        <div className="shrink-0 w-full sm:w-[240px] h-[170px] sm:h-[180px] rounded-xl overflow-hidden relative">
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-0 p-4 sm:p-6">
+        <div className="shrink-0 w-full sm:w-[240px] h-[180px] sm:h-[180px] rounded-xl overflow-hidden relative">
           {image ? (
             <>
               <img

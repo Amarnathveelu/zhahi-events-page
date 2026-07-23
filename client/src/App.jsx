@@ -19,14 +19,14 @@ const STATS = [
 
 function StatsSection() {
   return (
-    <section className="relative px-6 py-16 overflow-hidden">
+    <section className="relative px-4 sm:px-6 py-10 sm:py-16 overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-[#1a1f35] via-[#1e2440] to-[#1a1f35]" />
       <div className="absolute inset-0 opacity-[0.02]" style={{
         backgroundImage: "radial-gradient(circle, #6C5CE7 1px, transparent 1px)",
         backgroundSize: "32px 32px"
       }} />
       <div className="max-w-5xl mx-auto relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
           {STATS.map((stat, i) => (
             <motion.div
               key={stat.label}
@@ -34,10 +34,10 @@ function StatsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="text-center p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all"
+              className="text-center p-4 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all"
             >
-              <div className="w-12 h-12 rounded-xl mx-auto mb-4 flex items-center justify-center" style={{ backgroundColor: `${stat.color}15` }}>
-                <stat.icon size={22} style={{ color: stat.color }} />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl mx-auto mb-3 sm:mb-4 flex items-center justify-center" style={{ backgroundColor: `${stat.color}15` }}>
+                <stat.icon size={20} style={{ color: stat.color }} />
               </div>
               <p className="font-display text-3xl sm:text-4xl text-white mb-1">{stat.value}</p>
               <p className="text-xs text-white/50 font-medium">{stat.label}</p>
@@ -56,7 +56,7 @@ function OffersBanner({ offers }) {
   if (visibleOffers.length === 0) return null;
 
   return (
-    <section className="px-6 py-8">
+    <section className="px-4 sm:px-6 py-6 sm:py-8">
       <div className="max-w-6xl mx-auto space-y-4">
         {visibleOffers.map((offer) => (
           <motion.div

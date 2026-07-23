@@ -47,7 +47,7 @@ export default function Competitions({ events, loading, onEnroll }) {
             <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
             <span className="text-xs font-semibold text-indigo-400 tracking-wider uppercase">Our Events</span>
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl uppercase tracking-wider text-white mb-4">
+          <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl uppercase tracking-normal sm:tracking-wider text-white mb-4">
             Trending Competitions
           </h2>
           <p className="text-white/50 text-sm max-w-lg mx-auto">
