@@ -66,8 +66,8 @@ export default function AdminEvents() {
         extraNote: event.extraNote || "",
         accent: event.accent || "#6C5CE7",
       });
-      setImagePreview(event.image ? `https://zhahi-events-page.onrender.com${event.image}` : null);
-      setQrPreview(event.qrCode ? `https://zhahi-events-page.onrender.com${event.qrCode}` : null);
+      setImagePreview(event.image || null);
+      setQrPreview(event.qrCode || null);
     } else {
       setEditingEvent(null);
       setForm({ ...EMPTY_EVENT });
@@ -152,7 +152,7 @@ export default function AdminEvents() {
           <div key={event._id} className="bg-white rounded-2xl border border-gray-200 p-5 flex flex-col sm:flex-row gap-4 items-start">
             <div className="w-full sm:w-24 h-20 rounded-xl overflow-hidden bg-gray-100 shrink-0">
               {event.image ? (
-                <img src={`https://zhahi-events-page.onrender.com${event.image}`} alt={event.title} className="w-full h-full object-cover" />
+                <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-gray-300 text-xs">No img</div>
               )}
