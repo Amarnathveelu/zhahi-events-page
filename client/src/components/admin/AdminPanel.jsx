@@ -54,14 +54,14 @@ export default function AdminPanel() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="h-screen bg-gray-100 flex overflow-hidden">
       {/* Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-[#111827] transform transition-transform duration-300 lg:translate-x-0 lg:static lg:z-auto ${
+        className={`fixed inset-y-0 left-0 z-40 w-64 bg-[#111827] flex flex-col transform transition-transform duration-300 lg:translate-x-0 ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center gap-3 px-6 py-5 border-b border-white/5">
+        <div className="flex items-center gap-3 px-6 py-5 border-b border-white/5 shrink-0">
           <div className="w-9 h-9 rounded-xl bg-indigo-500/10 flex items-center justify-center">
             <Shield size={18} className="text-indigo-400" />
           </div>
@@ -71,7 +71,7 @@ export default function AdminPanel() {
           </div>
         </div>
 
-        <nav className="px-4 py-4 space-y-1">
+        <nav className="px-4 py-4 space-y-1 flex-1 overflow-y-auto">
           {NAV_ITEMS.map((item) => (
             <button
               key={item.id}
@@ -88,7 +88,7 @@ export default function AdminPanel() {
           ))}
         </nav>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-white/5">
+        <div className="p-4 border-t border-white/5 shrink-0">
           <button
             onClick={handleLogout}
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-white/50 hover:text-red-400 hover:bg-red-500/5 transition-all"
@@ -105,7 +105,7 @@ export default function AdminPanel() {
       )}
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="flex-1 flex flex-col h-screen overflow-y-auto">
         {/* Top bar */}
         <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-3 sm:gap-4 sticky top-0 z-20">
           <button
