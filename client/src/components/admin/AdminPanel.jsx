@@ -107,7 +107,7 @@ export default function AdminPanel() {
       {/* Main content */}
       <div className="flex-1 flex flex-col min-h-screen">
         {/* Top bar */}
-        <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center gap-4 sticky top-0 z-20">
+        <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center gap-3 sm:gap-4 sticky top-0 z-20">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="lg:hidden text-gray-500 hover:text-gray-700"
@@ -124,7 +124,7 @@ export default function AdminPanel() {
         </header>
 
         {/* Page content */}
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-4 sm:p-6">
           {activeTab === "dashboard" && <AdminDashboard />}
           {activeTab === "events" && <AdminEvents />}
           {activeTab === "offers" && <AdminOffers />}

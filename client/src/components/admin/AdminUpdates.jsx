@@ -65,13 +65,13 @@ export default function AdminUpdates() {
   return (
     <div>
       {/* Post form */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6 mb-6">
+      <div className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-6 mb-6">
         <h3 className="font-bold text-sm text-gray-900 mb-4 flex items-center gap-2">
           <Send size={16} className="text-indigo-500" />
           Post an Update
         </h3>
         <form onSubmit={handleSubmit} className="space-y-3">
-          <div className="flex gap-3">
+          <div className="flex flex-col sm:flex-row gap-3">
             <input
               type="text"
               value={form.title}
@@ -122,9 +122,9 @@ export default function AdminUpdates() {
               key={update._id}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-2xl border border-gray-200 p-5"
+              className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-5"
             >
-              <div className="flex items-start justify-between">
+              <div className="flex items-start justify-between gap-3">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="font-bold text-sm text-gray-900">{update.title}</h3>

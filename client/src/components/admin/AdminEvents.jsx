@@ -136,7 +136,7 @@ export default function AdminEvents() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <p className="text-sm text-gray-500">{events.length} events total</p>
         <button
           onClick={() => openForm()}
@@ -149,57 +149,59 @@ export default function AdminEvents() {
 
       <div className="space-y-3">
         {events.map((event) => (
-          <div key={event._id} className="bg-white rounded-2xl border border-gray-200 p-5 flex flex-col sm:flex-row gap-4 items-start">
-            <div className="w-full sm:w-24 h-20 rounded-xl overflow-hidden bg-gray-100 shrink-0">
-              {event.image ? (
-                <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-gray-300 text-xs">No img</div>
-              )}
-            </div>
-
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: event.accent }} />
-                <h3 className="font-bold text-gray-900 text-sm">{event.title}</h3>
-                <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${event.isActive ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"}`}>
-                  {event.isActive ? "Active" : "Inactive"}
-                </span>
-              </div>
-              <p className="text-xs text-gray-400 line-clamp-1">{event.description}</p>
-              <div className="flex items-center gap-3 mt-2">
-                <span className="text-xs text-gray-500 font-medium">₹{event.fee}</span>
-                <span className="text-xs text-gray-300">|</span>
-                <span className="text-xs text-gray-500">{event.duration}</span>
-                {event.qrCode && (
-                  <>
-                    <span className="text-xs text-gray-300">|</span>
-                    <span className="text-xs text-green-600 flex items-center gap-1"><QrCode size={10} /> QR</span>
-                  </>
+          <div key={event._id} className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-5">
+            <div className="flex flex-col sm:flex-row gap-4 items-start">
+              <div className="w-full sm:w-24 h-20 rounded-xl overflow-hidden bg-gray-100 shrink-0">
+                {event.image ? (
+                  <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-300 text-xs">No img</div>
                 )}
               </div>
-            </div>
 
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                onClick={() => handleToggle(event._id)}
-                className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${event.isActive ? "bg-green-50 text-green-600 hover:bg-green-100" : "bg-gray-50 text-gray-400 hover:bg-gray-100"}`}
-                title={event.isActive ? "Deactivate" : "Activate"}
-              >
-                {event.isActive ? <Eye size={16} /> : <EyeOff size={16} />}
-              </button>
-              <button
-                onClick={() => openForm(event)}
-                className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-100 transition-colors"
-              >
-                <Edit3 size={16} />
-              </button>
-              <button
-                onClick={() => handleDelete(event._id)}
-                className="w-9 h-9 rounded-xl bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition-colors"
-              >
-                <Trash2 size={16} />
-              </button>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: event.accent }} />
+                  <h3 className="font-bold text-gray-900 text-sm">{event.title}</h3>
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${event.isActive ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"}`}>
+                    {event.isActive ? "Active" : "Inactive"}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-400 line-clamp-1">{event.description}</p>
+                <div className="flex items-center gap-3 mt-2 flex-wrap">
+                  <span className="text-xs text-gray-500 font-medium">₹{event.fee}</span>
+                  <span className="text-xs text-gray-300">|</span>
+                  <span className="text-xs text-gray-500">{event.duration}</span>
+                  {event.qrCode && (
+                    <>
+                      <span className="text-xs text-gray-300">|</span>
+                      <span className="text-xs text-green-600 flex items-center gap-1"><QrCode size={10} /> QR</span>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0 flex-wrap sm:flex-nowrap">
+                <button
+                  onClick={() => handleToggle(event._id)}
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${event.isActive ? "bg-green-50 text-green-600 hover:bg-green-100" : "bg-gray-50 text-gray-400 hover:bg-gray-100"}`}
+                  title={event.isActive ? "Deactivate" : "Activate"}
+                >
+                  {event.isActive ? <Eye size={16} /> : <EyeOff size={16} />}
+                </button>
+                <button
+                  onClick={() => openForm(event)}
+                  className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-100 transition-colors"
+                >
+                  <Edit3 size={16} />
+                </button>
+                <button
+                  onClick={() => handleDelete(event._id)}
+                  className="w-9 h-9 rounded-xl bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition-colors"
+                >
+                  <Trash2 size={16} />
+                </button>
+              </div>
             </div>
           </div>
         ))}
@@ -233,14 +235,14 @@ function EventForm({ form, setForm, editingEvent, saving, imagePreview, qrPrevie
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
       <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div className="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-3xl z-10">
-          <h3 className="font-bold text-lg text-gray-900">{editingEvent ? "Edit Event" : "New Event"}</h3>
+        <div className="sticky top-0 bg-white border-b border-gray-100 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between rounded-t-3xl z-10">
+          <h3 className="font-bold text-base sm:text-lg text-gray-900">{editingEvent ? "Edit Event" : "New Event"}</h3>
           <button onClick={onClose} className="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200">
             <X size={16} />
           </button>
         </div>
 
-        <div className="p-6 space-y-5">
+        <div className="p-4 sm:p-6 space-y-5">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="sm:col-span-2">
               <label className="text-sm font-semibold text-gray-700 mb-1 block">Event Title *</label>

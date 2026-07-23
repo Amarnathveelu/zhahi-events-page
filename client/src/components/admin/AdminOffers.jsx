@@ -104,7 +104,7 @@ export default function AdminOffers() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <p className="text-sm text-gray-500">{offers.length} offers total</p>
         <button
           onClick={() => openForm()}
@@ -123,45 +123,47 @@ export default function AdminOffers() {
           </div>
         )}
         {offers.map((offer) => (
-          <div key={offer._id} className="bg-white rounded-2xl border border-gray-200 p-5 flex flex-col sm:flex-row gap-4 items-start">
-            <div className="w-full sm:w-24 h-20 rounded-xl overflow-hidden bg-gray-100 shrink-0">
-              {offer.image ? (
-                <img src={offer.image} alt={offer.title} className="w-full h-full object-cover" />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-gray-300">
-                  <Megaphone size={20} />
-                </div>
-              )}
-            </div>
-
-            <div className="flex-1 min-w-0">
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className="font-bold text-gray-900 text-sm">{offer.title}</h3>
-                <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${offer.isActive ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"}`}>
-                  {offer.isActive ? "Visible" : "Hidden"}
-                </span>
-                {offer.discount && (
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
-                    {offer.discount}
-                  </span>
+          <div key={offer._id} className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-5">
+            <div className="flex flex-col sm:flex-row gap-4 items-start">
+              <div className="w-full sm:w-24 h-20 rounded-xl overflow-hidden bg-gray-100 shrink-0">
+                {offer.image ? (
+                  <img src={offer.image} alt={offer.title} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-300">
+                    <Megaphone size={20} />
+                  </div>
                 )}
               </div>
-              <p className="text-xs text-gray-400 line-clamp-2">{offer.description}</p>
-            </div>
 
-            <div className="flex items-center gap-2 shrink-0">
-              <button
-                onClick={() => handleToggle(offer._id)}
-                className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${offer.isActive ? "bg-green-50 text-green-600 hover:bg-green-100" : "bg-gray-50 text-gray-400 hover:bg-gray-100"}`}
-              >
-                {offer.isActive ? <Eye size={16} /> : <EyeOff size={16} />}
-              </button>
-              <button onClick={() => openForm(offer)} className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-100 transition-colors">
-                <Edit3 size={16} />
-              </button>
-              <button onClick={() => handleDelete(offer._id)} className="w-9 h-9 rounded-xl bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition-colors">
-                <Trash2 size={16} />
-              </button>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1 flex-wrap">
+                  <h3 className="font-bold text-gray-900 text-sm">{offer.title}</h3>
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${offer.isActive ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"}`}>
+                    {offer.isActive ? "Visible" : "Hidden"}
+                  </span>
+                  {offer.discount && (
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
+                      {offer.discount}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-gray-400 line-clamp-2">{offer.description}</p>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0 flex-wrap sm:flex-nowrap">
+                <button
+                  onClick={() => handleToggle(offer._id)}
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center transition-colors ${offer.isActive ? "bg-green-50 text-green-600 hover:bg-green-100" : "bg-gray-50 text-gray-400 hover:bg-gray-100"}`}
+                >
+                  {offer.isActive ? <Eye size={16} /> : <EyeOff size={16} />}
+                </button>
+                <button onClick={() => openForm(offer)} className="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-100 transition-colors">
+                  <Edit3 size={16} />
+                </button>
+                <button onClick={() => handleDelete(offer._id)} className="w-9 h-9 rounded-xl bg-red-50 text-red-500 flex items-center justify-center hover:bg-red-100 transition-colors">
+                  <Trash2 size={16} />
+                </button>
+              </div>
             </div>
           </div>
         ))}
@@ -220,7 +222,7 @@ function OfferForm({ form, setForm, editingOffer, saving, imagePreview, imageRef
               placeholder="Offer description..."
             />
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-semibold text-gray-700 mb-1 block">Discount Tag</label>
               <input

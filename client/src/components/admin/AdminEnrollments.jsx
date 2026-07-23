@@ -70,13 +70,13 @@ export default function AdminEnrollments() {
   return (
     <div>
       {/* Filters */}
-      <div className="flex items-center gap-3 mb-6 flex-wrap">
-        <Filter size={16} className="text-gray-400" />
+      <div className="flex items-center gap-2 sm:gap-3 mb-6 flex-wrap">
+        <Filter size={16} className="text-gray-400 shrink-0" />
         {["all", "verification_pending", "paid", "pending", "failed"].map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
-            className={`text-xs font-semibold px-3 py-1.5 rounded-lg transition-all ${
+            className={`text-[10px] sm:text-xs font-semibold px-2.5 sm:px-3 py-1.5 rounded-lg transition-all ${
               filter === f
                 ? "bg-indigo-600 text-white"
                 : "bg-gray-100 text-gray-500 hover:bg-gray-200"
@@ -97,7 +97,7 @@ export default function AdminEnrollments() {
 
       <div className="space-y-3">
         {enrollments.map((enroll) => (
-          <div key={enroll._id} className="bg-white rounded-2xl border border-gray-200 p-5">
+          <div key={enroll._id} className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-5">
             <div className="flex flex-col sm:flex-row gap-4">
               {/* Info */}
               <div className="flex-1 min-w-0">
@@ -125,7 +125,7 @@ export default function AdminEnrollments() {
               </div>
 
               {/* Screenshot & actions */}
-              <div className="flex items-center gap-3 shrink-0">
+              <div className="flex items-center gap-2 sm:gap-3 shrink-0 flex-wrap sm:flex-nowrap">
                 {enroll.paymentScreenshot && (
                   <button
                     onClick={() => setPreviewImage(enroll.paymentScreenshot)}
