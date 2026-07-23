@@ -27,6 +27,7 @@ export default function EnrollModal({ competition, onClose }) {
   const [step, setStep] = useState("form"); // form | qr | screenshot | processing | success | error
   const [errorMsg, setErrorMsg] = useState("");
   const [enrollment, setEnrollment] = useState(null);
+  const [studentAccount, setStudentAccount] = useState(null);
   const [screenshotFile, setScreenshotFile] = useState(null);
   const [screenshotPreview, setScreenshotPreview] = useState(null);
 
@@ -57,8 +58,9 @@ export default function EnrollModal({ competition, onClose }) {
         fee: competition.fee,
         ...data,
       };
-      const { data: enrollment } = await createEnrollment(enrollPayload);
-      setEnrollment(enrollment);
+      const { data } = await createEnrollment(enrollPayload);
+      setEnrollment(data.enrollment);
+      if (data.studentAccount) setStudentAccount(data.studentAccount);
       setStep("qr");
     } catch (err) {
       setStep("form");
@@ -171,7 +173,7 @@ export default function EnrollModal({ competition, onClose }) {
 
             {/* STEP: Success */}
             {step === "success" && (
-              <SuccessStep competition={competition} onClose={onClose} />
+              <SuccessStep competition={competition} studentAccount={studentAccount} onClose={onClose} />
             )}
           </div>
         </motion.div>
@@ -480,7 +482,7 @@ function ScreenshotStep({ competition, enrollment, screenshotPreview, onFileChan
   );
 }
 
-function SuccessStep({ competition, onClose }) {
+function SuccessStep({ competition, studentAccount, onClose }) {
   return (
     <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="text-center py-8">
       <div className="relative w-20 h-20 mx-auto mb-6">
@@ -493,6 +495,16 @@ function SuccessStep({ competition, onClose }) {
       <p className="text-sm text-gray-500 mb-1">
         Your registration for <strong>{competition.title}</strong> is submitted.
       </p>
+
+      {studentAccount && (
+        <div className="bg-indigo-50 border border-indigo-200 rounded-xl px-5 py-4 mb-4 mt-4 text-left">
+          <p className="text-xs font-semibold text-indigo-700 mb-2">Student Account Created!</p>
+          <p className="text-xs text-indigo-600">Email: <strong>{studentAccount.email}</strong></p>
+          <p className="text-xs text-indigo-600">Password: <strong>{studentAccount.password}</strong></p>
+          <p className="text-[10px] text-indigo-400 mt-2">Use these credentials to login and track your enrollment.</p>
+        </div>
+      )}
+
       <div className="bg-amber-50 border border-amber-200 rounded-xl px-5 py-4 mb-6 mt-4 text-left">
         <p className="text-xs text-amber-700 leading-relaxed">
           Your payment screenshot is under verification. You will receive a confirmation once the admin verifies your payment.

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  LogOut, Clock, CheckCircle2, XCircle, AlertCircle, Bell, CreditCard, User
+  LogOut, Clock, CheckCircle2, XCircle, AlertCircle, Bell, CreditCard, User, Calendar
 } from "lucide-react";
 import { getStudentProfile, getStudentEnrollments, getStudentUpdates } from "../../utils/api";
 
@@ -190,28 +190,66 @@ function UpdatesTab({ updates }) {
     );
   }
 
-  const typeColors = {
-    general: "border-l-indigo-500 bg-indigo-50/50",
-    event: "border-l-green-500 bg-green-50/50",
-    payment: "border-l-amber-500 bg-amber-50/50",
+  const typeConfig = {
+    general: {
+      border: "border-l-indigo-500",
+      bg: "bg-gradient-to-r from-indigo-50/80 to-white",
+      icon: Bell,
+      iconBg: "bg-indigo-100",
+      iconColor: "text-indigo-600",
+      badge: "bg-indigo-100 text-indigo-700",
+      label: "General",
+    },
+    event: {
+      border: "border-l-green-500",
+      bg: "bg-gradient-to-r from-green-50/80 to-white",
+      icon: Calendar,
+      iconBg: "bg-green-100",
+      iconColor: "text-green-600",
+      badge: "bg-green-100 text-green-700",
+      label: "Event",
+    },
+    payment: {
+      border: "border-l-amber-500",
+      bg: "bg-gradient-to-r from-amber-50/80 to-white",
+      icon: CreditCard,
+      iconBg: "bg-amber-100",
+      iconColor: "text-amber-600",
+      badge: "bg-amber-100 text-amber-700",
+      label: "Payment",
+    },
   };
 
   return (
     <div className="space-y-3">
-      {updates.map((update) => (
-        <motion.div
-          key={update._id}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className={`bg-white rounded-2xl border border-gray-200 border-l-4 p-5 ${typeColors[update.type] || typeColors.general}`}
-        >
-          <div className="flex items-start justify-between mb-1">
-            <h3 className="font-bold text-sm text-gray-900">{update.title}</h3>
-            <span className="text-[10px] text-gray-400 shrink-0 ml-2">{new Date(update.createdAt).toLocaleDateString()}</span>
-          </div>
-          <p className="text-xs text-gray-600 leading-relaxed">{update.message}</p>
-        </motion.div>
-      ))}
+      {updates.map((update) => {
+        const cfg = typeConfig[update.type] || typeConfig.general;
+        const Icon = cfg.icon;
+        return (
+          <motion.div
+            key={update._id}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className={`bg-white rounded-2xl border border-gray-200 border-l-4 p-5 shadow-sm ${cfg.border} ${cfg.bg}`}
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className={`w-9 h-9 rounded-xl ${cfg.iconBg} flex items-center justify-center shrink-0`}>
+                <Icon size={18} className={cfg.iconColor} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <h3 className="font-bold text-sm text-gray-900">{update.title}</h3>
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${cfg.badge}`}>
+                    {cfg.label}
+                  </span>
+                </div>
+              </div>
+              <span className="text-[10px] text-gray-400 shrink-0">{new Date(update.createdAt).toLocaleDateString()}</span>
+            </div>
+            <p className="text-sm text-gray-600 leading-relaxed pl-12">{update.message}</p>
+          </motion.div>
+        );
+      })}
     </div>
   );
 }
