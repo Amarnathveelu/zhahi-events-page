@@ -9,12 +9,11 @@ const LINKS = [
   { label: "Contact Us", href: "#contact" },
 ];
 
-function scrollToSection(id) {
-  const el = document.getElementById(id.replace("#", ""));
+function scrollToSection(href) {
+  const id = href.replace("#", "");
+  const el = document.getElementById(id);
   if (el) {
-    const offset = 80;
-    const top = el.getBoundingClientRect().top + window.scrollY - offset;
-    window.scrollTo({ top, behavior: "smooth" });
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 }
 
