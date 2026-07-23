@@ -6,9 +6,12 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("admin_token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  const adminToken = localStorage.getItem("admin_token");
+  const studentToken = localStorage.getItem("student_token");
+  if (studentToken) {
+    config.headers.Authorization = `Bearer ${studentToken}`;
+  } else if (adminToken) {
+    config.headers.Authorization = `Bearer ${adminToken}`;
   }
   return config;
 });
@@ -17,9 +20,14 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("admin_token");
-      localStorage.removeItem("admin_user");
-      if (window.location.pathname === "/admin") {
+      const path = window.location.pathname;
+      if (path.startsWith("/student")) {
+        localStorage.removeItem("student_token");
+        localStorage.removeItem("student_user");
+        window.location.reload();
+      } else if (path.startsWith("/admin")) {
+        localStorage.removeItem("admin_token");
+        localStorage.removeItem("admin_user");
         window.location.reload();
       }
     }
