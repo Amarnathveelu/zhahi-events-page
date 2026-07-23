@@ -55,16 +55,27 @@ export default function EnrollModal({ competition, onClose }) {
       const enrollPayload = {
         competitionId: competition.id,
         competitionTitle: competition.title,
-        fee: competition.fee,
-        ...data,
+        fee: Number(competition.fee),
+        name: data.name,
+        phone: data.phone,
+        email: data.email,
+        collegeName: data.collegeName,
+        year: data.year,
+        language: data.language || undefined,
+        teamName: data.teamName || undefined,
+        teamMembers: data.teamMembers?.length ? data.teamMembers.filter(m => m.name?.trim()).map(m => ({ name: m.name.trim() })) : undefined,
       };
-      const { data } = await createEnrollment(enrollPayload);
-      setEnrollment(data.enrollment);
-      if (data.studentAccount) setStudentAccount(data.studentAccount);
+      console.log("Enrollment payload:", enrollPayload);
+      const { data: resData } = await createEnrollment(enrollPayload);
+      console.log("Enrollment response:", resData);
+      setEnrollment(resData.enrollment);
+      if (resData.studentAccount) setStudentAccount(resData.studentAccount);
       setStep("qr");
     } catch (err) {
+      console.error("Enrollment error:", err.response?.data || err.message);
+      const msg = err?.response?.data?.message || err?.message || "Something went wrong. Please try again.";
       setStep("form");
-      setErrorMsg(err?.response?.data?.message || "Something went wrong. Please try again.");
+      setErrorMsg(msg);
     }
   };
 
